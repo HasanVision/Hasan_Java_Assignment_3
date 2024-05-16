@@ -74,13 +74,13 @@ public class Ink {
   } // printMarket()
 
   public void printMenu() {
-    System.out.println("(1) Show Portfolio");
-    System.out.println("(2) Show Stocks");
-    System.out.println("(3) Add Funds");
-    System.out.println("(4) Withdraw Funds");
+    System.out.println(ANSI_YELLOW + "(1) Show Portfolio" + ANSI_RESET);
+    System.out.println(ANSI_BLUE + "(2) Show Stocks" + ANSI_RESET);
+    System.out.println(ANSI_GREEN + "(3) Add Funds" + ANSI_RESET);
+    System.out.println(ANSI_RED + "(4) Withdraw Funds" + ANSI_RESET);
     System.out.println("(5) Show NetWorth");
     System.out.println("(6) Sell Stock");
-    System.out.println("(7) Close account");
+    System.out.println(ANSI_RED + "(7) Close account" + ANSI_RESET);
     System.out.println("(8) Exit");
   } // printMenu()
 
