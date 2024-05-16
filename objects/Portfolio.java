@@ -8,13 +8,13 @@ public class Portfolio {
   private Calendar openDate = Calendar.getInstance();
   private Calendar closeDate = Calendar.getInstance();
   private double balance;
-  private double networth;
+  private double netWorth;
   // composition!
   private ArrayList<Stock> stocks = new ArrayList<>();
 
   public Portfolio(double deposit) {
     this.balance = deposit;
-    this.networth = 0.0;
+    this.netWorth = 0.0;
   } // constructor
 
   // ==============>>
@@ -31,7 +31,7 @@ public class Portfolio {
     return this.balance;
   }
 
-  public double getNetworth() {
+  public double getNetWorth() {
     // spidey sense if tingling...
     // To calculate your net worth, you subtract your total liabilities from your
     // total assets.
@@ -40,8 +40,8 @@ public class Portfolio {
       totalValueOfStocks += stock.getPrice() * stock.getQty();
 
     }
-    this.networth = totalValueOfStocks + this.balance;
-    return this.networth;
+    this.netWorth = totalValueOfStocks + this.balance;
+    return this.netWorth;
   }
 
   public void updateNetWorth() {
@@ -49,7 +49,7 @@ public class Portfolio {
     for (Stock stock : stocks) {
       totalStockValue += stock.getPrice() * stock.getQty();
     }
-    this.networth = totalStockValue + this.balance;
+    this.netWorth = totalStockValue + this.balance;
   }
 
   public ArrayList<Stock> getStocks() {
@@ -66,6 +66,14 @@ public class Portfolio {
     if (amount > 0)
       this.balance += amount;
   } // addFunds()
+
+  public boolean withdrawFunds(double amount) {
+    if (amount > 0 && amount <= this.balance) {
+      this.balance -= amount;
+      return true;
+    }
+    return false;
+  }
 
   // =============>>
   // STOCKS
@@ -90,11 +98,20 @@ public class Portfolio {
           stock.setQty(stock.getQty() - qty);
         }
         balance += stock.getPrice() * qty; // Update balance
-        updateNetWorth(); // Recalculate networth
+        updateNetWorth(); // Recalculate netWorth
         return true;
       }
     }
     return false;
+  }
+
+  public void closeAccount() {
+    for (Stock stock : stocks) {
+      balance += stock.getPrice() * stock.getQty();
+    }
+    stocks.clear();
+    updateNetWorth();
+    setCloseDate();
   }
 
 } // class

@@ -17,13 +17,29 @@ public class Ink {
   }
 
   public void printWelcome() {
+    String welcomeArt = ANSI_GREEN +
+        "   _____ _             _    _    _         ____        _    \n" +
+        "  / ____| |           | |  | |  (_)       |  _ \\      | |   \n" +
+        " | (___ | |_ __ _ _ __| | _| | ___  __ _  | |_) |_   _| | __\n" +
+        "  \\___ \\| __/ _` | '__| |/ / |/ / |/ _` | |  _ <| | | | |/ /\n" +
+        "  ____) | || (_| | |  |   <|   <| | (_| | | |_) | |_| |   < \n" +
+        " |_____/ \\__\\__,_|_|  |_|\\_\\_|\\_\\_|\\__,_| |____/ \\__,_|_|\\_\\\n" + ANSI_RESET;
+    System.out.println(welcomeArt);
     System.out.println(ANSI_GREEN + "*** Welcome to StockUP beta ***" + ANSI_RESET + "\n");
-
   }
 
   public void printGoodday() {
+    String goodbyeArt = ANSI_BLUE +
+        "  ____                 _ _                _____          _       \n" +
+        " / __ \\               | | |              |  __ \\        | |      \n" +
+        "| |  | |_   _____ _ __| | |_   _ _ __ ___| |  | |_   _  | |_   _ \n" +
+        "| |  | \\ \\ / / _ \\ '__| | | | | | '__/ _ \\ |  | | | | | | | | | |\n" +
+        "| |__| |\\ V /  __/ |  | | | |_| | | |  __/ |__| | |_| |_| | |_| |\n" +
+        " \\____/  \\_/ \\___|_|  |_|_|\\__,_|_|  \\___|_____/ \\__,_|_|\\__, |\n" +
+        "                                                        __/ |\n" +
+        "                                                       |___/ \n" + ANSI_RESET;
+    System.out.println(goodbyeArt);
     System.out.println(ANSI_BLUE + "*** Richer Every Day with stockUP ***" + ANSI_RESET + "\n");
-
   }
 
   public void printStock(Stock stock) {
@@ -61,10 +77,20 @@ public class Ink {
     System.out.println("(1) Show Portfolio");
     System.out.println("(2) Show Stocks");
     System.out.println("(3) Add Funds");
-    System.out.println("(4) Show Networth");
-    System.out.println("(5) Sell Stock");
-    System.out.println("(6) Exit");
+    System.out.println("(4) Withdraw Funds");
+    System.out.println("(5) Show NetWorth");
+    System.out.println("(6) Sell Stock");
+    System.out.println("(7) Close account");
+    System.out.println("(8) Exit");
   } // printMenu()
+
+  public void printCloseAccount() {
+    System.out.println("Are you sure you want to close your account? (y/n)");
+  }
+
+  public void printInvalidInput() {
+    System.out.println("Invalid input. Please try again.");
+  }
 
   public void printStockDetail(Stock stock) {
     System.out.printf("Name: %s Symbol: %s Price: %d Qty: %d",
@@ -77,8 +103,9 @@ public class Ink {
         balance);
   }
 
-  public void printNetworth(double networth, ArrayList<Stock> stocks) {
-    System.out.println(ANSI_GREEN + "Net Worth: $" + networth + ANSI_RESET);
+  public void printNetWorth(double netWorth, ArrayList<Stock> stocks) {
+    System.out.println("Net Worth: $" + netWorth);
+    System.out.println("Stocks owned:");
     // Optionally print details of each stock
     for (Stock stock : stocks) {
       System.out.println(stock.getName() + " - " + stock.getQty() + " shares at $" + stock.getPrice());
@@ -92,6 +119,10 @@ public class Ink {
       System.out.printf("%d. %s (%s) - %d shares at $%.2f each\n",
           i + 1, stock.getName(), stock.getSymbol(), stock.getQty(), stock.getPrice());
     }
+  }
+
+  public void printWithdrawFunds(double balance) {
+    System.out.printf("Current balance: $%.2f\nAmount to withdraw?: ", balance);
   }
 
 } // class

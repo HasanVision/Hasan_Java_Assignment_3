@@ -11,7 +11,7 @@ public class StockUp {
   private static Portfolio portfolio;
 
   private static int min = 1; // used for menu selections
-  private static int max = 6; // we need a way to set that based on menu items!!
+  private static int max = 8; // we need a way to set that based on menu items!!
   private static boolean isDone = false;
   private static boolean goBack = false;
 
@@ -39,7 +39,7 @@ public class StockUp {
 
       switch (choice) {
         case 1: // print portfolio
-          ink.printPortfolio(portfolio.getStocks(), portfolio.getNetworth(),
+          ink.printPortfolio(portfolio.getStocks(), portfolio.getNetWorth(),
               portfolio.getBalance());
           break;
         case 2: // print market
@@ -64,12 +64,22 @@ public class StockUp {
           // print the new balance
           System.out.printf("New balance: $%.2f\n", portfolio.getBalance());
           break;
-        case 4:
-          ink.printNetworth(portfolio.getNetworth(), portfolio.getStocks());
+        case 4: // withdraw funds
+          ink.printWithdrawFunds(portfolio.getBalance());
+          double withdrawAmount = input.nextDouble();
+          boolean success = portfolio.withdrawFunds(withdrawAmount);
+          if (success) {
+            System.out.printf(ANSI_GREEN + "Successfully withdrew $%.2f\n" + ANSI_RESET, withdrawAmount);
+          } else {
+            System.out.println(ANSI_RED + "Failed to withdraw funds. Please try again." + ANSI_RESET);
+          }
+          break;
+        case 5:
+          ink.printNetWorth(portfolio.getNetWorth(), portfolio.getStocks());
           break;
 
         // sell stock
-        case 5:
+        case 6:
           ink.printSellStock(portfolio.getStocks());
           System.out.println("Enter the index of the stock you want to sell:");
           int stockIndex = input.nextInt();
@@ -95,7 +105,18 @@ public class StockUp {
           }
           break;
 
-        case 6:
+        case 7: // close account
+          ink.printCloseAccount();
+          String confirmation = input.next();
+          if (confirmation.equalsIgnoreCase("y")) {
+            portfolio.closeAccount();
+            System.out.println(ANSI_GREEN + "Account closed. All stocks sold. Net worth is now: "
+                + portfolio.getNetWorth() + ANSI_RESET);
+          } else {
+            System.out.println("Account not closed.");
+          }
+          break;
+        case 8:
           isDone = !isDone;
           break;
       } // switch
